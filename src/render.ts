@@ -14,43 +14,20 @@ import {
   type JSXElement,
   type ValidComponent,
 } from 'solid-js';
-import type { RendererMain, RendererMainSettings } from '@lightningjs/renderer';
+import type { RendererMain } from '@lightningtv/core/renderer';
 
 const solidRenderer = createRenderer<SolidNode>(nodeOpts);
 
 let renderer: RendererMain;
 export const rootNode = nodeOpts.createElement('App');
 
-export async function startLightning(
-  options?: Partial<RendererMainSettings>,
-  rootId?: string | HTMLElement,
-) {
-  renderer = startLightningRenderer(
-    options || Config.rendererOptions,
-    rootId || 'app',
-  );
-  return await renderer.init();
-}
-
-export const render = async function (
+export const render = function (
   code: () => JSXElement,
   node?: HTMLElement | string,
 ) {
-  await startLightning(undefined, node);
+  renderer = startLightningRenderer(Config.rendererOptions, node || 'app');
   rootNode.lng = renderer.root!;
   rootNode.rendered = true;
-  // @ts-expect-error - code is jsx element and not SolidElement yet
-  const dispose = solidRenderer.render(code, rootNode);
-  return {
-    dispose,
-    rootNode,
-    renderer,
-  };
-};
-
-// used for playground - must be sync so user must await startLightning
-export const renderSync = function (code: () => JSXElement) {
-  rootNode.lng = renderer.root!;
   // @ts-expect-error - code is jsx element and not SolidElement yet
   return solidRenderer.render(code, rootNode);
 };

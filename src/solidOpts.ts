@@ -1,4 +1,4 @@
-import { assertTruthy } from '@lightningjs/renderer/utils';
+import { assertTruthy } from '@lightningtv/core/renderer';
 import { ElementNode, NodeType, log, type TextNode } from '@lightningtv/core';
 import type { createRenderer } from 'solid-js/universal';
 

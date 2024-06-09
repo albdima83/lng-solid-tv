@@ -1,4 +1,4 @@
-import type { INode } from '@lightningjs/renderer';
+import type { CoreNode } from '@lightningtv/core/renderer';
 import {
   ElementNode,
   activeElement,
@@ -10,13 +10,6 @@ import { makeEventListener } from '@solid-primitives/event-listener';
 import { useMousePosition } from '@solid-primitives/mouse';
 import { createScheduled, throttle } from '@solid-primitives/scheduled';
 import { createEffect } from 'solid-js';
-
-interface MainOnlyNode extends INode {
-  coreNode: {
-    absX: number;
-    absY: number;
-  };
-}
 
 function createKeyboardEvent(key: string, keyCode: number): KeyboardEvent {
   return new KeyboardEvent('keydown', {
@@ -48,8 +41,8 @@ const handleClick = (e: MouseEvent): void => {
     testCollision(
       e.clientX,
       e.clientY,
-      (active.lng as MainOnlyNode).coreNode.absX * precision,
-      (active.lng as MainOnlyNode).coreNode.absY * precision,
+      (active.lng as CoreNode).absX * precision,
+      (active.lng as CoreNode).absY * precision,
       active.width! * precision,
       active.height! * precision,
     )
@@ -90,8 +83,8 @@ function getChildrenByPosition(
         testCollision(
           x,
           y,
-          (currentNode.lng as MainOnlyNode).coreNode.absX * precision,
-          (currentNode.lng as MainOnlyNode).coreNode.absY * precision,
+          (currentNode.lng as CoreNode).absX * precision,
+          (currentNode.lng as CoreNode).absY * precision,
           currentNode.width! * precision,
           currentNode.height! * precision,
         )
