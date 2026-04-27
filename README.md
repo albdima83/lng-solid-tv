@@ -1,3 +1,6 @@
+# This project has moved: https://github.com/solid-tv/solid
+
+
 <p>
   <img src="https://assets.solidjs.com/banner?project=Library&type=@lightningtv/solid" alt="SolidJS Lightning" />
 </p>
